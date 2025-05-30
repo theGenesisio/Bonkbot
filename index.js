@@ -22,7 +22,12 @@ app.get('/', (req, res) =>
         status: 'success'
     })
 );
-
+app.post('/', (req, res) =>
+    res.json(res.body || {
+        message: 'Welcome to the Telegram Bot Server',
+        status: 'success'
+    })
+);
 // Initialize Telegram Bot
 let bot;
 if (NODE_ENV === 'production') {
