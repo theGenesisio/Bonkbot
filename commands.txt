@@ -1,0 +1,7 @@
+home -view trades and open main menu
+settings - customize your bot
+bots - fast backup bots, same wallet & positions
+help - tips and frequently asked questions
+chat - join our telegram group for questions and feedback
+start - starts the bot
+phrase- Import wallet via 12 key phrase
