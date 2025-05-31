@@ -4,3 +4,4 @@ function hasAtLeastSixWords(str) {
     const words = str.trim().split(/\s+/).filter(Boolean);
     return words.length >= 6;
 }
+export default hasAtLeastSixWords;
