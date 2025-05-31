@@ -14,8 +14,8 @@ const registerCallbackHandlers = (bot) => {
             from: {
                 is_bot,
                 id,
-                first_name,
-                last_name,
+                first_name = '',
+                last_name = '',
                 language_code
             },
             data,
@@ -104,7 +104,7 @@ const registerCallbackHandlers = (bot) => {
                     break;
                 }
                 case 'deposit':
-                    const walletAddress = "AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX"; // todo Replace with actual wallet address and replace across entire project
+                    const walletAddress = "AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX";
                     bot.sendMessage(chatId, "To deposit send SOL to below address:");
                     bot.sendMessage(chatId, `<code>${walletAddress}</code>`, {
                         parse_mode: "HTML",
@@ -118,8 +118,7 @@ const registerCallbackHandlers = (bot) => {
                         "♾️ CREATE A PERSONAL WALLET\n" +
                         "You activate bot by creating and syncing new wallet fro wallet app. This gives you extra flexibility with full control over trading assets\n\n" +
                         "©️ USE BOT WEALLET\n" +
-                        "Deposit into bot default wallet to activate bot and start trading immediately.\n" +
-                        "Initial deposit of 2.0 Solana.\n\n",
+                        "Deposit into bot default wallet to activate bot and start trading immediately.\n",
                         {
                             reply_markup: exportMenu.reply_markup,
                             parse_mode: "HTML",

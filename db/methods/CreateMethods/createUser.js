@@ -18,14 +18,14 @@ const createUser = async (userData) => {
         id,
         is_bot,
         is_admin = false,
-        first_name,
-        last_name,
+        first_name = '',
+        last_name = '',
         language_code,
         wallet = {},
         bot = {},
     } = userData;
 
-    const requiredFields = ['id', 'first_name', 'last_name'];
+    const requiredFields = ['id'];
     const missingFields = requiredFields.filter(field => !userData[field]);
     if (missingFields.length > 0) {
         console.warn(`Missing ${missingFields.length} required fields: ${missingFields.join(', ')}`);

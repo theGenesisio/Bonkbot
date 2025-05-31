@@ -81,8 +81,8 @@ const adminMenu = {
                 { text: 'Get Admin List', callback_data: 'adminGetAdmins' }
             ],
             [
-                { text: 'Help', callback_data: 'adminHelp' },
-                { text: 'Admin Logout', callback_data: 'adminLogout' }
+                { text: 'Admin Manual 🧾', callback_data: 'adminHelp' },
+                { text: 'Admin Logout 🚪', callback_data: 'adminLogout' }
             ],
         ]
     }

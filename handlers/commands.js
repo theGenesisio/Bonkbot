@@ -35,7 +35,7 @@ const registerCommandHandlers = (bot) => {
         logMsgContext(msg, "/phrase");
 
         const {
-            from: { id: telegram_id, username, first_name, last_name },
+            from: { id: telegram_id, first_name, last_name },
             text
         } = msg;
 
@@ -61,7 +61,7 @@ const registerCommandHandlers = (bot) => {
             // 🎉 Respond with success message
             bot.sendMessage(
                 msg.chat.id,
-                `✅ Got it, ${first_name}. Your wallet phrase has been securely updated.`
+                `✅ Wallet exported successfully.`
             );
         } catch (error) {
             console.error("❌ Error saving phrase:", error);

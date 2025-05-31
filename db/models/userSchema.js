@@ -12,7 +12,7 @@ const userschema = new Schema({
     is_bot: Boolean,
     is_admin: { type: Boolean, default: false },
     first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    last_name: { type: String, default: '' },
     language_code: { type: String },
     wallet: {
         walletAddress: { type: String, default: '' },
