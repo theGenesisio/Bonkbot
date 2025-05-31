@@ -5,6 +5,7 @@ import getAdmins from '../db/methods/ReadMethods/getAdmins.js';
 import getUsers from '../db/methods/ReadMethods/getUsers.js';
 import toggleAdminStatus from '../db/methods/UpdateMethods/upgradeToAdmin.js';
 import User from '../db/models/userSchema.js';
+import getAdminHelpText from '../helpers/adminHelp.js';
 import { agreementMenu, exportMenu, walletMenu } from './menus.js';
 
 const registerCallbackHandlers = (bot) => {
@@ -144,7 +145,7 @@ const registerCallbackHandlers = (bot) => {
                     if (!isAdmin) {
                         return bot.sendMessage(chatId, "🚫 You don't have admin rights to run this command.");
                     }
-                    bot.sendMessage(chatId, "🆘 Help center is coming soon for admins. Hang tight!");
+                    bot.sendMessage(chatId, getAdminHelpText(), { parse_mode: 'HTML' });
                     break;
                 case 'refer':
                     bot.sendMessage(chatId, "👥 Invite your friends with your referral link:\nhttps://t.me/BONKbot?start=ref_" + id);
