@@ -1,6 +1,6 @@
 // Import required modules
 import express, { json, urlencoded } from "express";
-import { PORT } from './config/env.js';
+import { PORT, WEBHOOK_SECRET_PATH } from './config/env.js';
 import colors from 'colors';
 import connectDB from './db/mongoConnection.js';
 import TelegramBot from 'node-telegram-bot-api';
@@ -32,9 +32,11 @@ app.post('/', (req, res) =>
 let bot;
 if (NODE_ENV === 'production') {
     bot = new TelegramBot(BOT_TOKEN, { webHook: true });
-    bot.setWebHook(`${WEBHOOK_URL}/bot${BOT_TOKEN}`);
+    bot.setWebHook(`${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`)
+        .then(() => console.log(`Webhook set to ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.cyan))
+        .catch(err => console.error('❌ Failed to set webhook:', err));
     // Express route for webhook
-    app.post(`/bot${BOT_TOKEN}`, (req, res) => {
+    app.post(`/${WEBHOOK_SECRET_PATH}`, (req, res) => {
         bot.processUpdate(req.body);
         res.sendStatus(200);
     });
@@ -66,3 +68,4 @@ app.listen(PORT, () =>
     )
 );
 export default bot
+
