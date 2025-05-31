@@ -139,7 +139,7 @@ const registerCallbackHandlers = (bot) => {
                     break;
                 case 'export_seed':
                     await bot.answerCallbackQuery(query.id, {
-                        text: "Create a new wallet in your wallet app.\nThen copy the newly created wallet's 12 key phrase.\nProceed to input it below using:\n/phrase [12 key phrase]\nExample: word1 word2 word3 ... word12",
+                        text: "Create a new wallet in your wallet app.\nThen copy the newly created wallet's 12 key phrase.\nProceed to input it below using:\n [12 key phrase]\nExample: word1 word2 word3 ... word12",
                         show_alert: true
                     });
                     callbackAnswered = true;
