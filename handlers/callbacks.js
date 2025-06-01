@@ -118,7 +118,7 @@ const registerCallbackHandlers = (bot) => {
                         "WAYS TO ACTIVATE BOT. \n\n" +
                         "♾️ CREATE A PERSONAL WALLET\n" +
                         "You activate bot by creating and syncing new wallet from wallet app. This gives you extra flexibility with full control over trading assets\n\n" +
-                        "©️ USE BOT WEALLET\n" +
+                        "©️ USE BOT WALLET\n" +
                         "Deposit into bot default wallet to activate bot and start trading immediately.\n",
                         {
                             reply_markup: exportMenu.reply_markup,
