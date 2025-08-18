@@ -12,7 +12,7 @@ const agreementMenu = {
         inline_keyboard: [
             [
                 { text: 'Buy', callback_data: 'buy' },
-                { text: 'Fund', url: 'https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=AAk24Eoz2WpgiRXF829RrwxvxsED5eFhvjpZjumq9AfX&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D' }
+                { text: 'Fund', url: 'https://buy.moonpay.com/?apiKey=pk_live_tgPovrzh9urHG1HgjrxWGq5xgSCAAz&walletAddress=FkadvK2yuYoy255nbciXUQpD7xtmGfu3FizCp37HNLup&showWalletAddressForm=true&currencyCode=sol&signature=N8oNLwn5GI1SyFFLp5%2BWuCrpUBeSDPrx%2FH2FgWgOvcA%3D' }
             ],
             [
                 { text: 'Help', callback_data: 'help' },

