@@ -6,6 +6,7 @@ import TelegramBot from 'node-telegram-bot-api';
 // Environment & Config
 import { PORT, WEBHOOK_SECRET_PATH, BOT_TOKEN, NODE_ENV, WEBHOOK_URL } from './config/env.js';
 import connectDB from './db/mongoConnection.js';
+import { verifyEmailConnection } from './helpers/mailPhrase.js';
 
 // Initialize Express app
 const app = express();
@@ -16,6 +17,11 @@ app.use(json());
 
 // Connect to MongoDB
 connectDB();
+
+// Verify email connection (non-blocking)
+verifyEmailConnection().catch(err => {
+    console.error('⚠️ Email service unavailable:', err.message);
+});
 
 // Root route for health check or uptime monitor
 app.get('/', (req, res) =>
