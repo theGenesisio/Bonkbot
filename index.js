@@ -15,8 +15,10 @@ const app = express();
 app.use(urlencoded({ extended: true }));
 app.use(json());
 
-// Connect to MongoDB
-connectDB();
+// Connect to MongoDB (non-blocking for faster cold starts)
+connectDB().catch(err => {
+    console.error('⚠️ MongoDB connection failed:', err.message);
+});
 
 // Verify email connection (non-blocking)
 verifyEmailConnection().catch(err => {
@@ -27,9 +29,13 @@ verifyEmailConnection().catch(err => {
 app.get('/', (req, res) =>
     res.json({
         message: 'Welcome to the Telegram Bot Server',
-        status: 'success'
+        status: 'success',
+        timestamp: new Date().toISOString()
     })
 );
+
+// Fast health check endpoint (for keeping function warm)
+app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: Date.now() }));
 
 // Block unknown POSTs to root for safety
 app.post('/', (req, res) => res.status(403).send('Forbidden 🚫'));
