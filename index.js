@@ -50,8 +50,10 @@ const initializeBot = () => {
         // Webhook mode for production
         bot = new TelegramBot(BOT_TOKEN, { webHook: true });
 
-        // Webhook is set manually via API - no need to set it here
-        console.log(`✅ Webhook configured: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.cyan);
+        // Set webhook to your Vercel deployment URL
+        bot.setWebHook(`${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`)
+            .then(() => console.log(`✅ Webhook set to ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.cyan))
+            .catch(err => console.error('❌ Failed to set webhook:', err));
 
         // Webhook listener route with DB guard
         app.post(`/${WEBHOOK_SECRET_PATH}`, async (req, res) => {
