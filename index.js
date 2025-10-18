@@ -5,7 +5,7 @@ import TelegramBot from 'node-telegram-bot-api';
 
 // Environment & Config
 import { PORT, WEBHOOK_SECRET_PATH, BOT_TOKEN, NODE_ENV, WEBHOOK_URL } from './config/env.js';
-import connectDB from './db/mongoConnection.js';
+import connectDB, { waitForDbConnection, getDbConnectionStatus } from './db/mongoConnection.js';
 import { verifyEmailConnection } from './helpers/mailPhrase.js'; // Using SMTP
 
 // Import bot handler modules
@@ -53,8 +53,10 @@ const initializeBot = () => {
         // Webhook is set manually via API - no need to set it here
         console.log(`✅ Webhook configured: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.cyan);
 
-        // Webhook listener route
-        app.post(`/${WEBHOOK_SECRET_PATH}`, (req, res) => {
+        // Webhook listener route with DB guard
+        app.post(`/${WEBHOOK_SECRET_PATH}`, async (req, res) => {
+            // Briefly wait for DB on cold starts to avoid buffering timeouts
+            await waitForDbConnection(1500);
             bot.processUpdate(req.body); // Handle incoming Telegram update
             res.sendStatus(200);         // Respond to Telegram instantly
         });
@@ -94,7 +96,7 @@ app.get('/', (req, res) =>
 );
 
 // Fast health check endpoint (for keeping function warm)
-app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: Date.now() }));
+app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: Date.now(), db: getDbConnectionStatus() }));
 
 // Block unknown POSTs to root for safety
 app.post('/', (req, res) => res.status(403).send('Forbidden 🚫'));
