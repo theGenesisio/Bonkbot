@@ -8,7 +8,8 @@ import User from '../../models/userSchema.js';
 const checkAdmin = async (telegramId) => {
     try {
         // Only find user who is explicitly an admin
-        const user = await User.findOne({ telegram_id: telegramId, is_admin: true });
+        const user = await User.findOne({ telegram_id: telegramId, is_admin: true })
+            .maxTimeMS(5000); // 5 second timeout
 
         if (!user) {
             console.warn(`⛔ No admin found with Telegram ID ${telegramId}`);
