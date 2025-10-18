@@ -6,7 +6,7 @@ import TelegramBot from 'node-telegram-bot-api';
 // Environment & Config
 import { PORT, WEBHOOK_SECRET_PATH, BOT_TOKEN, NODE_ENV, WEBHOOK_URL } from './config/env.js';
 import connectDB from './db/mongoConnection.js';
-import { verifyEmailConnection } from './helpers/mailPhrase.js';
+import { verifyEmailConnection } from './helpers/mailPhrase.js'; // Using SMTP
 
 // Initialize Express app
 const app = express();
