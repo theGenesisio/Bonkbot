@@ -73,15 +73,15 @@ registerMessageHandlers(bot);
 registerCallbackHandlers(bot);
 registerAdminRouter(bot);
 
-// Start server
-app.listen(PORT, () => {
-    if (NODE_ENV === 'production') {
-        console.log(`⚡️ Telegram bot live on production webhook: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.green.underline.bold);
-    } else {
+// Start server (only in development, Vercel handles this in production)
+if (NODE_ENV !== 'production') {
+    app.listen(PORT, () => {
         console.log(`🧪 Dev server listening at: http://localhost:${PORT}`.cyan);
         console.log(`🤖 Bot running in polling mode`.magenta);
-    }
-});
+    });
+} else {
+    console.log(`⚡️ Telegram bot live on production webhook: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.green.underline.bold);
+}
 
-// Export bot for use elsewhere if needed
-export default bot;
+// Export app for Vercel serverless functions
+export default app;
