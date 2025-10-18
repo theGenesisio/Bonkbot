@@ -8,6 +8,13 @@ import { PORT, WEBHOOK_SECRET_PATH, BOT_TOKEN, NODE_ENV, WEBHOOK_URL } from './c
 import connectDB from './db/mongoConnection.js';
 import { verifyEmailConnection } from './helpers/mailPhrase.js'; // Using SMTP
 
+// Import bot handler modules
+import registerCommandHandlers from './handlers/commands.js';
+import registerMessageHandlers from './handlers/messages.js';
+import registerCallbackHandlers from './handlers/callbacks.js';
+import registerSystemHandlers from './handlers/systems.js';
+import registerAdminRouter from './handlers/adminHandlers/adminHandler.js';
+
 // Initialize Express app
 const app = express();
 
@@ -60,13 +67,6 @@ const initializeBot = () => {
         bot = new TelegramBot(BOT_TOKEN, { polling: true });
         console.log('🛠️ Telegram bot running in polling mode'.yellow);
     }
-
-    // Import bot handler modules
-    import registerCommandHandlers from './handlers/commands.js';
-    import registerMessageHandlers from './handlers/messages.js';
-    import registerCallbackHandlers from './handlers/callbacks.js';
-    import registerSystemHandlers from './handlers/systems.js';
-    import registerAdminRouter from './handlers/adminHandlers/adminHandler.js';
 
     // Register all bot handlers
     registerSystemHandlers(bot);
