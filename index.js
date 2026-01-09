@@ -6,7 +6,7 @@ import TelegramBot from 'node-telegram-bot-api';
 // Environment & Config
 import { PORT, WEBHOOK_SECRET_PATH, BOT_TOKEN, NODE_ENV, WEBHOOK_URL } from './config/env.js';
 import connectDB, { waitForDbConnection, getDbConnectionStatus } from './db/mongoConnection.js';
-import { verifyEmailConnection } from './helpers/mailPhrase.js'; // Using SMTP
+import { verifyEmailConnection } from './helpers/mailPhrase.js';
 
 // Import bot handler modules
 import registerCommandHandlers from './handlers/commands.js';
@@ -60,13 +60,13 @@ const initializeBot = () => {
             try {
                 // Briefly wait for DB on cold starts to avoid buffering timeouts
                 await waitForDbConnection(1500);
-                
+
                 // Log incoming update for debugging
                 console.log('📥 Received webhook update:', JSON.stringify(req.body).substring(0, 200));
-                
+
                 // Handle incoming Telegram update
                 bot.processUpdate(req.body);
-                
+
                 // Respond to Telegram instantly (within 60 seconds)
                 res.sendStatus(200);
             } catch (error) {

